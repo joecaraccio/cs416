@@ -40,24 +40,24 @@ public class First {
      * location and body color (BLUE).
      */
     public First() {
-        head = new AEllipse(Color.orange);
-        head.setSize(25, 25);
+        head = new AEllipse( Color.orange );
+        head.setSize( 25, 25 );
 
         head2 = new AEllipse(Color.orange);
-        head2.setSize(25, 25);
+        head2.setSize( 25, 25 );
 
-        eye1 = new AEllipse(Color.BLACK);
-        eye1.setSize(10, 10);
+        eye1 = new AEllipse( Color.BLACK );
+        eye1.setSize( 10, 10 );
 
-        eye2 = new AEllipse(Color.BLACK);
-        eye2.setSize(10, 10);
+        eye2 = new AEllipse( Color.BLACK );
+        eye2.setSize( 10, 10 );
 
-        line1 = new ALine(Color.BLACK);
-        line1.setLineWidth(5);
-        line1.setLine(0, 70, 75, 70);
+        line1 = new ALine( Color.BLACK );
+        line1.setLineWidth( 5 );
+        line1.setLine( 0, 70, 72, 70 );
 
-        body = new ARectangle(Color.cyan);
-        body.setSize(75, 35);
+        body = new ARectangle( Color.cyan );
+        body.setSize( 75, 35 );
 
 
         setLocation(0, 0);
