@@ -195,7 +195,56 @@ public class MoverGUI extends JPanel implements NewFrame
         // 10. Implement Reset button code. 
         //////////////////////////////////////////////////////////////
 
+        switch (buttonId) {
+            case 0 :
+                System.out.println("Start Button");
+                _timer.start();
+                break;
+            case 1 :
+                System.out.println("Stop Button");
+                _timer.stop();
+                break;
+            case 2 :
+                System.out.println("Faster Button");
+                float currentX = _snowman.getMoveX();
+                float currentY = _snowman.getMoveY();
+                float newX = currentX * fasterRatio;
+                float newY = currentY * fasterRatio;
+                int newXi = Math.round(newX);
+                int newYi = Math.round(newY);
+                System.out.println("New Speed= X: " + newXi + " Y:" + newYi);
+                _snowman.setMove( newXi, newYi );
+                break;
+            case 3 :
+                System.out.println("Slower Button");
+                float currentX2 = _snowman.getMoveX();
+                float currentY2 = _snowman.getMoveY();
+                float newX2 = currentX2 * slowerRatio;
+                float newY2 = currentY2 * slowerRatio;
+                int newXi2 = Math.round(newX2);
+                int newYi2 = Math.round(newY2);
 
+                if( minStepFlag) {
+                    if (newXi2 <= minStepSize || newYi2 <= minStepSize) {
+                        //do nothing
+                    } else {
+                        _snowman.setMove(newXi2, newXi2);
+
+                        System.out.println("New Speed= X: " + newXi2 + " Y:" + newYi2);
+                    }
+                } else
+                {
+                    _snowman.setMove(newXi2, newXi2);
+
+                    System.out.println("New Speed= X: " + newXi2 + " Y:" + newYi2);
+                }
+                break;
+            case 4:
+                System.out.println("Reset Button");
+                _snowman.setMove(dxDefault,dyDefault);
+                break;
+        }
+/*
         if( buttonId == 0 )
         {
             System.out.println("Start Button");
@@ -249,7 +298,7 @@ public class MoverGUI extends JPanel implements NewFrame
 
         }
 
-
+*/
     
     }
     //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

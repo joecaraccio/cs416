@@ -9,10 +9,10 @@
  */
 package p1;
 import src.*;
+
+import java.awt.*;
 import java.awt.geom.*;
 //import java.awt.*;
-import java.awt.Color;
-import java.awt.Point;
 import javax.swing.*;
 
 public class ARegularPoly implements AShape
@@ -36,13 +36,18 @@ public class ARegularPoly implements AShape
     private int                _ulY;  //   of the base vertices
     private double[]           _x;    // coords of poly in double at origin 
     private double[]           _y;
+
+    private int xGiven; //value the user has given
+    private int yGiven; //value the user has given
     
     //--------------------  constructors ---------------------------
     /**
      * Constructor from ARegularPoly
      */
     public ARegularPoly( int x, int y, int nSides, int radius )
-    { 
+    {
+        xGiven = x;
+        yGiven = y;
         _nSides = nSides;
         _radius = radius;
         setColor( defaultColor );
@@ -115,8 +120,46 @@ public class ARegularPoly implements AShape
         // Need to make the java.awt.Polygon object that represents
         //   this RegularPolygon. See the comments above for help
         ////////////////////////////////////////////////////////////////
-        
-        
+        System.out.println("VALUES: " + _x[0] + " " + _x[1] + " " + _x[2] );
+        for(int i = 0; i < _x.length; i++ )
+        {
+            _x[i] = locX - _ulX + _x[i];
+        }
+
+        for(int j = 0; j < _x.length; j++ )
+        {
+            _y[j] = locY - _ulY + _y[j];
+        }
+        System.out.println("VALUES: " + _x[0] + " " + _x[1] + " " + _x[2] );
+
+        System.out.println(_x.length);
+
+        //now take these and put them in the int arrays
+        int[] x1 = new int[_x.length];
+        int[] y1 = new int[_y.length];
+        System.out.println("VALUES: " + _x[0] + " " + _x[1] + " " + _x[2] );
+
+        for(int i = 0; i < _x.length; i++ )
+        {
+            System.out.println(_x[i] + "Value of xarray: " + (int) Math.round(_x[i]) );
+            x1[i] = (int) Math.round(_x[i]);
+        }
+
+        for(int j = 0; j < _x.length; j++ )
+        {
+            y1[j] = (int) Math.round(_y[j]);
+        }
+        _polygon = new Polygon();
+        for(int q = 0; q < x1.length; q++ )
+        {
+            _polygon.addPoint( x1[q], y1[q] );
+            System.out.println("Value is Q: " + q );
+            System.out.println( "Point at: " + x1[q] + " " + y1[q]);
+        }
+
+        System.out.println("tell mom i made it");
+        System.out.println( _polygon.getBounds().x );
+        _bnds =_polygon.getBounds();
     }
     //----------------------- setRotation( int ) -------------------------
     /**
@@ -132,7 +175,9 @@ public class ARegularPoly implements AShape
         // Polygon. Since you need to do all this for setRadius also, 
         // it better be in a subroutine. 
         ////////////////////////////////////////////////////////////////
-        
+        _rotation = aRotation; //change roation to when it is calculated
+        makeVertices();         // make verts relative to origin at center
+        makePolygon( xGiven, yGiven );
         
         
     }
@@ -150,8 +195,9 @@ public class ARegularPoly implements AShape
         // Polygon. Since you need to do all this for setRotation also, 
         // it better be in a subroutine. 
         ////////////////////////////////////////////////////////////////
-        
-        
+        _radius = r;
+        makeVertices();
+        makePolygon( xGiven, yGiven );
         
     }
     
@@ -165,20 +211,37 @@ public class ARegularPoly implements AShape
         // 1. Look at the implementaton of fill for AEllipse
         // 2. Look at the java api documentation for Graphics2D
         ////////////////////////////////////////////////////////////
-        
-        
+        Color savedColor = aBetterBrush.getColor();
+        aBetterBrush.setColor( _fillColor );
+        aBetterBrush.fill( _polygon );
+        aBetterBrush.setColor(savedColor);
+
+
     }
     //--------------------------- draw( Graphics2D ) ---------------------
     /**
      * draw - overrides parent method
      */
-    public void draw( java.awt.Graphics2D aBrush ) 
+    public void draw( java.awt.Graphics2D brush2D )
     {
         ////////////////////////////////////////////////////////////
         // 1. Look at the implementaton of draw for AEllipse
         // 2. Look at the java api documentation for Graphics2D
         ////////////////////////////////////////////////////////////
-        
+        Color savedColor = brush2D.getColor();
+        brush2D.setColor( _borderColor );
+        java.awt.Stroke savedStroke = brush2D.getStroke();
+
+        // There are lots of subclasses of Stroke; the simplest is
+        //   BasicStroke that allows you to define a line width.
+        brush2D.setStroke( new java.awt.BasicStroke( _lineWidth ));
+
+        brush2D.draw( _polygon ); // "this" class, AEllipse, is subclass
+        // of java.awt.geom.Ellipse2D.Double
+        // A Graphics2D object knows how to draw
+        // the border of this kind of object.
+        brush2D.setStroke( savedStroke );
+        brush2D.setColor( savedColor );
         
     }
     //++++++++++++++ wheels-like AShape convenience methods ++++++++++++++
@@ -206,10 +269,13 @@ public class ARegularPoly implements AShape
      */
     public void setSize( int aWidth, int aHeight ) 
     {
+        int size = (aWidth + aHeight)/2;
+        _radius = size/2;
         //////////////////////////////////////////////////////////
         // complete the code as described in comments above
         //////////////////////////////////////////////////////////
-
+        makeVertices();
+        makePolygon( xGiven, yGiven );
      
     }
     

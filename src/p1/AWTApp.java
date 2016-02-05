@@ -13,6 +13,9 @@
 package p1;
 import src.*;
 import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Vector;
 
 public class AWTApp extends JFrame
 {
@@ -20,13 +23,47 @@ public class AWTApp extends JFrame
     /**
      * Construct a JFrame for the application and put a JPanel in it.
      */
+    Vector<AShape> _ashapes = null;   // objects that need to be displayed
+
+
     public AWTApp( String title, String[] args )
     {
         super( title );            // specify window title
         this.setSize( 700, 500 );  // define window size
         
         this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        
+
+
+        _ashapes = new Vector<AShape>();
+
+        AEllipse ellip = new AEllipse();
+        ellip.setLocation(10,10);
+        ellip.setColor(Color.GREEN );
+        _ashapes.add(ellip);
+
+        ARectangle rec1 = new ARectangle();
+        rec1.setLocation(100, 100);
+        rec1.setColor(Color.RED);
+        _ashapes.add(rec1);
+
+        ARoundRectangle round1 = new ARoundRectangle( 20, 20, 50, 50 , 5, 5);
+        round1.setColor(Color.yellow);
+        _ashapes.add(round1);
+
+        ARoundRectangle round2 = new ARoundRectangle( 5, 5, 70, 70 , 15, 15);
+        round2.setColor(Color.pink);
+        _ashapes.add(round2);
+
+        ALine aL = new ALine();
+        aL.setColor(Color.cyan);
+        aL.setLocation( 200 , 200 );
+        aL.setLineWidth( 20 );
+        aL.setLine( 200, 200, 300, 300 );
+        _ashapes.add(aL);
+
+
+
+
         // All application specific code is in the AWTPanel constructor.
         // AWTPanel extends JPanel. 
         
