@@ -37,8 +37,7 @@ public class ARegularPoly implements AShape
     private double[]           _x;    // coords of poly in double at origin 
     private double[]           _y;
 
-    private int xGiven; //value the user has given
-    private int yGiven; //value the user has given
+
     
     //--------------------  constructors ---------------------------
     /**
@@ -46,8 +45,7 @@ public class ARegularPoly implements AShape
      */
     public ARegularPoly( int x, int y, int nSides, int radius )
     {
-        xGiven = x;
-        yGiven = y;
+
         _nSides = nSides;
         _radius = radius;
         setColor( defaultColor );
@@ -120,7 +118,6 @@ public class ARegularPoly implements AShape
         // Need to make the java.awt.Polygon object that represents
         //   this RegularPolygon. See the comments above for help
         ////////////////////////////////////////////////////////////////
-        System.out.println("VALUES: " + _x[0] + " " + _x[1] + " " + _x[2] );
         for(int i = 0; i < _x.length; i++ )
         {
             _x[i] = locX - _ulX + _x[i];
@@ -130,18 +127,14 @@ public class ARegularPoly implements AShape
         {
             _y[j] = locY - _ulY + _y[j];
         }
-        System.out.println("VALUES: " + _x[0] + " " + _x[1] + " " + _x[2] );
 
-        System.out.println(_x.length);
 
         //now take these and put them in the int arrays
         int[] x1 = new int[_x.length];
         int[] y1 = new int[_y.length];
-        System.out.println("VALUES: " + _x[0] + " " + _x[1] + " " + _x[2] );
 
         for(int i = 0; i < _x.length; i++ )
         {
-            System.out.println(_x[i] + "Value of xarray: " + (int) Math.round(_x[i]) );
             x1[i] = (int) Math.round(_x[i]);
         }
 
@@ -153,12 +146,10 @@ public class ARegularPoly implements AShape
         for(int q = 0; q < x1.length; q++ )
         {
             _polygon.addPoint( x1[q], y1[q] );
-            System.out.println("Value is Q: " + q );
-            System.out.println( "Point at: " + x1[q] + " " + y1[q]);
+
         }
 
-        System.out.println("tell mom i made it");
-        System.out.println( _polygon.getBounds().x );
+
         _bnds =_polygon.getBounds();
     }
     //----------------------- setRotation( int ) -------------------------
@@ -177,7 +168,7 @@ public class ARegularPoly implements AShape
         ////////////////////////////////////////////////////////////////
         _rotation = aRotation; //change roation to when it is calculated
         makeVertices();         // make verts relative to origin at center
-        makePolygon( xGiven, yGiven );
+        makePolygon( _polygon.getBounds().x, _polygon.getBounds().y );
         
         
     }
@@ -197,7 +188,7 @@ public class ARegularPoly implements AShape
         ////////////////////////////////////////////////////////////////
         _radius = r;
         makeVertices();
-        makePolygon( xGiven, yGiven );
+        makePolygon( _polygon.getBounds().x, _polygon.getBounds().y );
         
     }
     
@@ -214,7 +205,7 @@ public class ARegularPoly implements AShape
         Color savedColor = aBetterBrush.getColor();
         aBetterBrush.setColor( _fillColor );
         aBetterBrush.fill( _polygon );
-        aBetterBrush.setColor(savedColor);
+        aBetterBrush.setColor( savedColor );
 
 
     }
@@ -270,12 +261,13 @@ public class ARegularPoly implements AShape
     public void setSize( int aWidth, int aHeight ) 
     {
         int size = (aWidth + aHeight)/2;
-        _radius = size/2;
+        _radius = size;
+        System.out.println(" new raduis value is : " + _radius );
         //////////////////////////////////////////////////////////
         // complete the code as described in comments above
         //////////////////////////////////////////////////////////
         makeVertices();
-        makePolygon( xGiven, yGiven );
+        makePolygon( _polygon.getBounds().x, _polygon.getBounds().y );
      
     }
     

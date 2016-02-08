@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Created by Skipper on 2/4/2016.
  */
-public class First {
+public class First implements AShape {
 
     //AEllipse
     //ARectangle
@@ -29,6 +29,12 @@ public class First {
     AEllipse eye1;
     AEllipse eye2;
     ALine line1;
+    ARoundRectangle tongue;
+    ARoundRectangle blackPart;
+    ARoundRectangle eyebrow;
+    ARoundRectangle white;
+    ARoundRectangle random;
+    ARectangle ran2;
 
     int x, y;
     Color bodyColor = java.awt.Color.BLUE;
@@ -56,9 +62,31 @@ public class First {
         line1.setLineWidth( 5 );
         line1.setLine( 0, 70, 72, 70 );
 
+        tongue = new ARoundRectangle(20, 50, 35, 80, 10, 10 );
+        tongue.setColor( Color.RED );
+
+        blackPart = new ARoundRectangle( 20 , 35 , 25, 60, 15, 15 );
+        blackPart.setColor( Color.BLACK );
+
+
+        eyebrow = new ARoundRectangle( 20 , 30, 25, 10, 5, 5 );
+        eyebrow.setColor( Color.BLACK );
+
+        white = new ARoundRectangle( 20 , 20 , 15 , 40 , 15 , 15 );
+        white.setColor(Color.white );
+        white.setArcSize( 10 ,5  );
+
+
+
         body = new ARectangle( Color.cyan );
         body.setSize( 75, 35 );
 
+        random = new ARoundRectangle( 0 , 0 , 20 , 10 , 10 , 10 );
+        random.setColor( Color.green );
+        random.setArcSize( 8 , 7 );
+
+        ran2 = new ARectangle( Color.magenta );
+        ran2.setSize( 5 , 5 );
 
         setLocation(0, 0);
 
@@ -129,6 +157,12 @@ public class First {
         eye2.setLocation(x + 5, y);
         eye1.setLocation(x + 77, y);
         line1.setLocation(x + 13, y + 35);
+        tongue.setLocation( x + 35 , y + 35 );
+        blackPart.setLocation( x + 35 + 5, y + 40 );
+        eyebrow.setLocation( x + 35 , y + 10 );
+        white.setLocation( x + 45 , y + 45 );
+        random.setLocation( x + 43 , y + 100 );
+        ran2.setLocation( x +  46 , y + 102 );
         //sensor.setLocation( x + 35, y + 30 );
         //antenna.setPoints( x + 40, y + 30 , x + 40, y - 20 );
 
@@ -185,17 +219,22 @@ public class First {
         //   the parameter:
         //   body, wheel1, wheel2, caster, head, sensor, antenna.
         ///////////////////////////////////////////////////////////////
-        body.display(brush2D);
+        body.display( brush2D );
         //wheel1.display(brush2D);
         //wheel2.display(brush2D);
         // caster.display(brush2D);
-        head.display(brush2D);
-        head2.display(brush2D);
-        line1.display(brush2D);
-        eye1.display(brush2D);
-        eye2.display(brush2D);
-        // sensor.display(brush2D);
-        // antenna.display(brush2D);
+        tongue.display( brush2D );
+        blackPart.display( brush2D );
+        white.display( brush2D );
+        head.display( brush2D );
+        head2.display( brush2D );
+        line1.display( brush2D );
+        eye1.display( brush2D );
+        eye2.display( brush2D );
+        eyebrow.display( brush2D );
+        random.display( brush2D );
+        ran2.display( brush2D );
+
 
 
     }
@@ -248,6 +287,12 @@ public class First {
 
         // Minimal test: use each constructor
         final First bot1 = new First();
+        bot1.setColor( Color.BLUE );
+        bot1.setLocation( 10 , 10 );
+        System.out.println( "Color = " + bot1.getColor() );
+        System.out.println( "X Loc = " + bot1.getXLocation() + " Y Loc = " + bot1.getYLocation());
+
+
 
 
         // Create anonymous JPanel child w/ override for paintComponent

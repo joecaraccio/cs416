@@ -84,7 +84,8 @@ public class ARoundRectangle extends java.awt.geom.RoundRectangle2D.Double
      */
     public ARoundRectangle( int x, int y, int w, int h, int arcW, int arcH )
     {
-        this.setRoundRect( x,y,w,h,arcW,arcH);
+        this.setRoundRect( x , y , w , h, arcW, arcH );
+
 
     }
 
@@ -246,6 +247,16 @@ public class ARoundRectangle extends java.awt.geom.RoundRectangle2D.Double
      */
     public void setArcSize( double arcWidth, double arcHeight )
     {
+
+
+        int x = this.getBounds().x;
+        int y = this.getBounds().y;
+        int Xmax = (int) (this.getMaxX() -this.getMinX());
+        int Ymax = (int) (this.getMaxY() -this.getMinY());
+        this.setRoundRect( x , y , Xmax , Ymax, arcWidth, arcHeight );
+
+
+
 
     }
 
