@@ -27,6 +27,7 @@ public class RegularPolyTest extends JPanel
 {
     //-------------- instance variables ------------------------------
     ARegularPoly r1;
+    ARegularPoly r24;
     Vector<ARegularPoly>    _ashapes = null;   // objects that need to be displayed
 
     //------------------ constructor ---------------------------------
@@ -81,6 +82,11 @@ public class RegularPolyTest extends JPanel
         //this one should be even bigger
         ARegularPoly r9 = new ARegularPoly( 160 , 300 , 5 , 100 );
         r9.setColor( Color.YELLOW );
+        r9.setLineWidth( 3 );
+        r9.moveBy( 10 , 10 );
+        r9.setThickness( 10 );
+        r9.setFrameColor(Color.black );
+
         _ashapes.add( r9 );
 
         ARegularPoly r10 = new ARegularPoly( 400 , 420 , 3 , 30 );
@@ -171,13 +177,13 @@ public class RegularPolyTest extends JPanel
         System.out.println("Location should be 300,0 + " + r23.getXLocation() + " , " + r23.getYLocation());
 
         //lets call a majority of the methods right here
-        ARegularPoly r24 = new ARegularPoly( 350 , 0 , 7 , 30 );
+         r24 = new ARegularPoly( 350 , 0 , 7 , 30 );
         r24.setFrameColor( Color.black );
         r24.setFillColor( Color.RED );
         r24.setRotation( 590 );
         r24.setRadius( 32 );
         r24.setThickness( 3 );
-        _ashapes.add( r24 );
+        //_ashapes.add( r24 );
         //all methods have been tested
     }
     //------------- paintComponent( Graphics ) ----------------------
@@ -189,6 +195,8 @@ public class RegularPolyTest extends JPanel
         //////////////////////////////////////////////////////////
         Graphics2D brush2D = ( Graphics2D ) aBrush;
 
+        r24.display( brush2D );
+        r24.draw( brush2D );
         Iterator<ARegularPoly> iter = _ashapes.iterator();
         while ( iter.hasNext() )
             iter.next().display( brush2D );

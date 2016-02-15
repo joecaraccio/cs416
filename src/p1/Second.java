@@ -275,6 +275,7 @@ public class Second implements AShape {
         final Second bot1 = new Second();
         bot1.setColor( Color.BLUE );
         bot1.setLocation( 10 , 10 );
+        bot1.setLocation( 15 , 15 );
         System.out.println( "Color = " + bot1.getColor() );
         System.out.println( "X Loc = " + bot1.getXLocation() + " Y Loc = " + bot1.getYLocation());
 

@@ -56,6 +56,11 @@ public class AWTPanel extends JPanel
         el2.setLocation( 200 , 60 );
         _ashapes.add( el2 );
 
+        AEllipse el3 = new AEllipse();
+        el3.setColor( Color.cyan );
+        el3.setLocation( 300, 320 );
+        _ashapes.add( el3 );
+
         ARectangle rec1 = new ARectangle();
         rec1.setLocation( 250, 100 );
         rec1.setColor( Color.RED );
@@ -64,6 +69,18 @@ public class AWTPanel extends JPanel
         ARectangle rec2 = new ARectangle( Color.red );
         rec2.setLocation( 175 , 400 );
         _ashapes.add( rec2 );
+
+        ARoundRectangle r0 = new ARoundRectangle( 400 , 100 );
+        r0.setColor( Color.BLUE );
+        r0.setSize( 20, 20 );
+        r0.setArcSize( 10, 10 );
+        _ashapes.add( r0 );
+
+        ARoundRectangle r8 = new ARoundRectangle( 400 , 300 );
+        r8.setSize( 40, 40);
+        r8.setArcSize( 5, 5);
+        r8.setColor( Color.green );
+        _ashapes.add( r8 );
 
         ARoundRectangle r1 = new ARoundRectangle( 300 , 300 , 50 , 60 , 15 ,16 );
         r1.setColor( Color.red );
@@ -86,6 +103,10 @@ public class AWTPanel extends JPanel
 
         ARegularPoly poly2 = new ARegularPoly( 400 , 130 , 6 , 10 );
         _ashapes.add( poly2 );
+
+        ARegularPoly poly23 = new ARegularPoly( 400 , 130 , 6 , 10 );
+        poly23.setSize( 44, 44 );
+        _ashapes.add( poly23 );
 
         ARegularPoly poly3 = new ARegularPoly( 200 , 200 , 9 , 20 );
         poly3.setColor( Color.green );

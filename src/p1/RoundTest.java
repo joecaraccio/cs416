@@ -15,6 +15,7 @@ public class RoundTest extends JPanel
 {
     //-------------- instance variables ------------------------------
     Vector<AShape> _ashapes;
+    ARoundRectangle rr17;
     //------------------ constructor ---------------------------------
     public RoundTest( ) {
         _ashapes = new Vector<AShape>();
@@ -25,6 +26,8 @@ public class RoundTest extends JPanel
         //roughly half the size
         ARoundRectangle rr2 = new ARoundRectangle(245, 100, 70, 70, 180, 180);
         rr2.setColor(Color.red);
+        rr2.setLineWidth(2 );
+        rr2.setLocation( 245, 95 );
         //lets test location, location should return 245,100
         System.out.println("Location for RR2: " + rr2.getXLocation() + " , " + rr2.getYLocation());
         _ashapes.add(rr2);
@@ -32,6 +35,9 @@ public class RoundTest extends JPanel
         //this should just be a square
         ARoundRectangle rr3 = new ARoundRectangle(245, 5, 10, 10, 0, 0);
         rr3.setColor(Color.green);
+        Point p1 = new Point(245, 6);
+        rr3.setLocation( p1 );
+        rr3.setThickness(5);
         System.out.println("Color for RR3: " + rr3.getColor() );
         _ashapes.add(rr3);
 
@@ -102,6 +108,7 @@ public class RoundTest extends JPanel
 
         ARoundRectangle rr15 = new ARoundRectangle( 240 , 50 , 10 , 10 , 5 , 5 );
         rr15.setArcSize( 2 , 2 );
+        rr15.setLineWidth(2);
         rr15.setColor( rr14.getColor()  );
         _ashapes.add( rr15 );
 
@@ -109,12 +116,12 @@ public class RoundTest extends JPanel
         rr16.setColor( Color.black );
         _ashapes.add( rr16 );
 
-        ARoundRectangle rr17 = new ARoundRectangle( 60 , 50 , 10, 30 , 15 , 15  );
+        rr17 = new ARoundRectangle( 60 , 50 , 10, 30 , 15 , 15  );
         rr17.setColor( Color.red );
         rr17.setSize( 10 , 20 );
         rr17.setArcSize( 15 , 10 );
-        _ashapes.add( rr17 );
 
+        _ashapes.add( rr17 );
 
 
 
@@ -128,7 +135,8 @@ public class RoundTest extends JPanel
     {
         super.paintComponent( aBrush );
         Graphics2D brush2D = (Graphics2D) aBrush; // coerce to Graphics2D
-
+rr17.draw(brush2D);
+        rr17.display(brush2D);
         //////////////////////////////////////////////////////////////
         // invoke display( newBrush ) for all A-objects in scene
         //////////////////////////////////////////////////////////////

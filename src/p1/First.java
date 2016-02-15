@@ -29,6 +29,7 @@ public class First implements AShape {
     AEllipse eye1;
     AEllipse eye2;
     ALine line1;
+    ALine line2;
     ARoundRectangle tongue;
     ARoundRectangle blackPart;
     ARoundRectangle eyebrow;
@@ -57,6 +58,10 @@ public class First implements AShape {
 
         eye2 = new AEllipse( Color.BLACK );
         eye2.setSize( 10, 10 );
+
+        line2 = new ALine( Color.black);
+        line2.setLineWidth( 1 );
+        line2.setLine( 0 , 20 , 25, 20 );
 
         line1 = new ALine( Color.BLACK );
         line1.setLineWidth( 5 );
@@ -157,6 +162,7 @@ public class First implements AShape {
         eye2.setLocation(x + 5, y);
         eye1.setLocation(x + 77, y);
         line1.setLocation(x + 13, y + 35);
+        line2.setLocation(x + 10 , y + 10 );
         tongue.setLocation( x + 35 , y + 35 );
         blackPart.setLocation( x + 35 + 5, y + 40 );
         eyebrow.setLocation( x + 35 , y + 10 );
@@ -229,6 +235,7 @@ public class First implements AShape {
         head.display( brush2D );
         head2.display( brush2D );
         line1.display( brush2D );
+        line2.display( brush2D );
         eye1.display( brush2D );
         eye2.display( brush2D );
         eyebrow.display( brush2D );
