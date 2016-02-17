@@ -202,7 +202,7 @@ public class Dispatcher implements Animated
             Hospital h1 = this.getClosestHospital( car.getLocation() );
             line.setPoints( car.getLocation().x + car.getWidth()/2, car.getLocation().y + car.getHeight()/2, h1.getLocation().x, h1.getLocation().y );
             line.setVisible( true );
-            car.travelTo(h1.getLocation().x, h1.getLocation().y, EMTApp.highSpeed);
+            car.travelTo( h1.getLocation().x, h1.getLocation().y, EMTApp.highSpeed );
             car.newFrame();
         }
         if( car.isTargetReached() == true )
@@ -254,15 +254,17 @@ public class Dispatcher implements Animated
                 }
             } else if ( mode == 3 )
             {
-                _frametimer.restart();
 
 
                 if( _emergency.size() > 0 )
                 {
+                    _frametimer.restart();
 
                     mode = 0;
 
                 } else {
+                    _frametimer.restart();
+
                     mode = 2;
 
                     //off mode basically
