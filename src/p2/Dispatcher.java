@@ -49,6 +49,7 @@ public class Dispatcher implements Animated
     private int mode;
     private EmergencySite currentSite;
     private boolean delay;
+    private boolean reset;
     
     //------------------ constructor -----------------------------
     public Dispatcher( 
@@ -71,6 +72,7 @@ public class Dispatcher implements Animated
         mode = 0;
         //mode 0 is traveling  to emergency site
         //mode 1 is traveling to hospital
+        reset = false;
     }
     //---------------------- setNextSite() -------------------------
     /**
@@ -158,14 +160,25 @@ public class Dispatcher implements Animated
         if( mode == 2 )
         {
             line.setVisible( false );
+        if( reset == false ) {
+            car.travelTo(10, 10, EMTApp.normalSpeed);
+            //System.out.println("Reseting...");
+            if( car.getLocation().x == 10 )
+            {
+                if( car.getLocation().y == 10 )
+                {
+                    reset = true;
+                }
+            }
+        }
 
-            car.travelTo( 10, 10, EMTApp.normalSpeed );
-            //mode = 1;
+            car.targetReachedReset();
             car.newFrame();
 
             //mode mode
             if( _emergency.size() > 0 )
             {
+                reset = false;
                 mode = 0;
 
             }
@@ -226,6 +239,7 @@ public class Dispatcher implements Animated
 
                 } else {
                     mode = 2;
+
                     //off mode basically
                 }
             }
@@ -239,6 +253,8 @@ public class Dispatcher implements Animated
                 EmergencySite e = this.getNextSite();
                 currentSite = e;
             }
+            currentSite.setNoDrag( true );
+
             int nextX = currentSite.getXLocation();
             int nextY = currentSite.getYLocation();
             //

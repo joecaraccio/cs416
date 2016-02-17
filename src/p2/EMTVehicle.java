@@ -218,6 +218,11 @@ public class EMTVehicle extends JComponent implements Animated
         return _animated;
     }
 
+    public void targetReachedReset()
+    {
+        targetReached = false;
+    }
+
     public boolean isTargetReached()
     {
         return targetReached;

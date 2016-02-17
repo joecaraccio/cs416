@@ -34,6 +34,7 @@ public class EmergencySite extends JRectangle
     private ArrayList<EmergencySite> list;
     private Dispatcher dis;
     private boolean solo;
+    private boolean noDrag;
     
     //---------------------- constructors ---------------------------
     /**
@@ -48,6 +49,7 @@ public class EmergencySite extends JRectangle
         setFrameColor( lineColor );
         setSize( size, size );
         solo = false;
+        noDrag = false;
 
         addMouseListener( this );
         addMouseMotionListener( this );
@@ -83,9 +85,10 @@ public class EmergencySite extends JRectangle
         //
         // Assign it to the instance variable, _saveMouse
         /////////////////////////////////////////////////////////////
-        _saveMouse = getParent().getMousePosition();
-        
-        
+
+            _saveMouse = getParent().getMousePosition();
+
+
     }
      private EMTPanel em2;
 
@@ -107,7 +110,9 @@ public class EmergencySite extends JRectangle
         //      object will know this site is no longer a real site
         //      and should not be visited by the emt vehicle.
         //////////////////////////////////////////////////////////////
-        list.remove( this );
+        if( solo == false ) {
+            list.remove(this);
+        }
         this.setColor( Color.BLUE );
         //this.setColor( Color.green );
         //getParent().repaint();
@@ -126,32 +131,47 @@ public class EmergencySite extends JRectangle
     public void mouseReleased( MouseEvent me ){}
     public void mouseEntered( MouseEvent me ){}
     public void mouseExited( MouseEvent me ){}
+
+    public void setNoDrag ( boolean t )
+    {
+        noDrag = t;
+    }
     
     //+++++++++++++++++++ mouseMotionListener methods ++++++++++++++++
     //---------------- mouseDragged ----------------------------------
     public void mouseDragged( MouseEvent me )
     {
-        //////////////////////////////////////////////////////////////
-        //  IF this object is draggable
-        //     Get new position of mouse:
-        //         getParent().getMousePosition()
-        //     For each of x and y coordinates, compute
-        //       dX = newX - oldX (stored in _saveMouse.x)
-        //       dY = newY - oldY (stored in _saveMouse.y)
-        //     invoke moveBy( dX, dY ) 
-        //     Save new position in _saveMouse
-        //     getParent().repaint()
-        //////////////////////////////////////////////////////////////
-        if( solo == false ) {
-            boolean nodrag = false;
-            if (list.size() > 0) {
-                if (list.get(0) == this) {
-                    nodrag = true;
+        if( noDrag == false ) {
+
+            //////////////////////////////////////////////////////////////
+            //  IF this object is draggable
+            //     Get new position of mouse:
+            //         getParent().getMousePosition()
+            //     For each of x and y coordinates, compute
+            //       dX = newX - oldX (stored in _saveMouse.x)
+            //       dY = newY - oldY (stored in _saveMouse.y)
+            //     invoke moveBy( dX, dY )
+            //     Save new position in _saveMouse
+            //     getParent().repaint()
+            //////////////////////////////////////////////////////////////
+            if (solo == false) {
+                boolean nodrag = false;
+                if (list.size() > 0) {
+                    if (list.get(0) == this) {
+                        nodrag = true;
+                    }
                 }
-            }
-            if (dis.getMode() != 0 && nodrag == true) {
-                //do nothing
-            } else {
+                if (dis.getMode() != 0 && nodrag == true) {
+                    //do nothing
+                } else {
+                    int dX = getParent().getMousePosition().x - _saveMouse.x;
+                    int dY = getParent().getMousePosition().y - _saveMouse.y;
+                    this.moveBy(dX, dY);
+                    _saveMouse = getParent().getMousePosition();
+
+                    getParent().repaint();
+                }
+            } else if (solo == true) {
                 int dX = getParent().getMousePosition().x - _saveMouse.x;
                 int dY = getParent().getMousePosition().y - _saveMouse.y;
                 this.moveBy(dX, dY);
@@ -159,17 +179,8 @@ public class EmergencySite extends JRectangle
 
                 getParent().repaint();
             }
-        } else if ( solo == true )
-        {
-            int dX = getParent().getMousePosition().x - _saveMouse.x;
-            int dY = getParent().getMousePosition().y - _saveMouse.y;
-            this.moveBy(dX, dY);
-            _saveMouse = getParent().getMousePosition();
 
-            getParent().repaint();
         }
-        
-        
     }
     //----------------- mouseMoved not implemented -------------------
     public void mouseMoved( MouseEvent me ){}
