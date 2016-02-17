@@ -227,6 +227,8 @@ public class EMTVehicle extends JComponent implements Animated
     {
         return targetReached;
     }
+
+
     //---------------------- setAnimated( boolean ) ------------------
     public void setAnimated( boolean onOff )
     {

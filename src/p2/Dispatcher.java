@@ -195,6 +195,16 @@ public class Dispatcher implements Animated
         //       emergency site, if there is one, or home if no more 
         //       emergencies.
         //////////////////////////////////////////////////////////////
+
+        if( mode == 3 )
+        {
+            //System.out.println("Mode 3 lets go");
+            Hospital h1 = this.getClosestHospital( car.getLocation() );
+            line.setPoints( car.getLocation().x + car.getWidth()/2, car.getLocation().y + car.getHeight()/2, h1.getLocation().x, h1.getLocation().y );
+            line.setVisible( true );
+            car.travelTo(h1.getLocation().x, h1.getLocation().y, EMTApp.highSpeed);
+            car.newFrame();
+        }
         if( car.isTargetReached() == true )
         {
             //switch the mode
@@ -216,19 +226,34 @@ public class Dispatcher implements Animated
                     mode = 1;
                 }
 
+                mode = 3;
 
                     //now tells us what hopsital we need to go
-                if( !justGoHome ) {
-                    Hospital h1 = this.getClosestHospital( car.getLocation() );
-                    line.setPoints( car.getLocation().x + car.getWidth()/2, car.getLocation().y + car.getHeight()/2, h1.getLocation().x, h1.getLocation().y );
-                    line.setVisible( true );
-                    car.travelTo(h1.getLocation().x, h1.getLocation().y, EMTApp.highSpeed);
-                    mode = 1;
-                }
+               // if( !justGoHome ) {
+
+
+
+
+                //}
 
             } else if ( mode == 1 )
             {
 
+                _frametimer.restart();
+
+
+                if( _emergency.size() > 0 )
+                {
+
+                    mode = 0;
+
+                } else {
+                    mode = 2;
+
+                    //off mode basically
+                }
+            } else if ( mode == 3 )
+            {
                 _frametimer.restart();
 
 
