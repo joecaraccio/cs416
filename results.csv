@@ -1,0 +1,24 @@
+Binary search lab performance results,,,
+,,,
+,Fill in every yellow cell with an execution time,,
+7-char words,Vector,HashSet,BinarySearch
+message,4.444 secs,.006 secs,.958 secs
+message,4.779 secs,.004 secs,.654 secs
+message,4.986 secs,.004 secs,.643 secs
+,,,
+escaper,4.214 secs,.005 secs,.77 secs
+escaper,2.089 secs,.004 secs,.644 secs
+escaper,2.083 secs,.006 secs,.661 secs
+,,,
+relapse,2.09 secs,.004 secs,.665 secs
+relapse,2.126 secs,.005 secs,.668 secs
+relapse,2.15 secs,.004 secs,.789 secs
+,,,
+8-char words,,,
+strainer,30.552 secs,.306 secs,5.58 secs
+strainer,XXXXXXXX,.024 secs,6.543 secs
+strainer,XXXXXXXX,.035 secs,5.869 secs
+,,,
+qwertyui,28.172 secs,.038 secs,5.275 secs
+qwertyui,XXXXXXXX,.033 secs,5.61 secs
+qwertyui,XXXXXXXX,.028 secs,5.953 secs

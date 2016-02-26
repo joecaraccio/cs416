@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * Recursion.java - a collection of recursive static methods that 
  *                 need to be completed.
- * @author rdb
+ * @author JoeCaraccio
  * 
  * Last modified: 09/15/10 rdb
  */
@@ -201,20 +201,22 @@ public class Recursion
     
     public static int maxValue( int[] list, int n )
     {
-        System.out.println("This is broken joe");
         //------------- start maxValue ------------
         int maxVal = Integer.MIN_VALUE;  // the initial value is irrelevant
         //--- base case: n = 1
         if ( n == 1 )
            return maxVal = list[ 0 ];
         else // recursion case
-
+        {
 
             // find maximum of first n-1 elements ( 0 ... n-2 )
             // return maximum of that number and the last one in this range.
+            maxVal = Math.max( list[ list.length - 1 ], maxValue( list , n - 1 ));
+            return maxVal;
 
 
-            return list[ n - 1] + maxValue( list , n-1 ) ;
+        }
+
 
 
     }   //------------- end maxValue ------------
