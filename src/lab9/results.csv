@@ -1,0 +1,13 @@
+Original implementation (add to position 0),,,,,,
+ ,Push Time,Pop Time,,,,
+100000:  ,1.322 secs,.886 secs,,,,
+ , ,,,,,
+Revised implementation (add to end),,,,,,
+ ,Push Time,Pop Time,,,,
+100000:,.01 secs,.025 secs,,,,
+1000000:,.037 secs,.145 secs,,,,
+ ,,,,,,
+ ---------------------------------------------------------------,,,,,,
+,,,,,,
+ 6. Why do you think the first implementation is so much worse than the second?,,,,,,"In the first implementation, when you pop, or push something onto the stack, you get the element at index(0). Therefore once you add or remove it the whole list must be shifed back 1 index, especially with bigger lists this could be costly. In the second impimentation everything is submitted on the back end, so none of the other elements on the stack ever get touched."
+"In the first implementation, when you pop, or push something onto the stack, you get the element at index(0). Therefore once you add or remove it the whole list must be shifed back 1 index, especially with bigger lists this could be costly. In the second impimentation everything is submitted on the back end, so none of the other elements on the stack ever get touched.",,,,,,
