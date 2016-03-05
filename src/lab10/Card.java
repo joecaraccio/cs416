@@ -1,3 +1,4 @@
+package lab10;
 //---------------------------- Card.java ------------------------
 import java.awt.geom.*;
 import java.awt.*;

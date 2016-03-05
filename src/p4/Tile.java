@@ -23,15 +23,18 @@ public class Tile
     //---------------------- instance variables -------------------------
     private String          letter;
     private int             row, col;
-    
+    private Vector<Tile> neighbors;
+    private String status;
+
     //------------------ constructor --------------------------------------
     public Tile( int r, int c, String let )
     {
         row = r;
         col = c;
         letter = let;
+        status = "unvisited";
     }
-    
+
     //------------------ getCol() --------------------------------------
     /**
      * returns the col location
@@ -60,5 +63,25 @@ public class Tile
     public String toString()
     {
         return letter;
+    }
+
+    public void setNeighbors( Vector<Tile> n )
+    {
+        neighbors = n;
+    }
+
+    public void setStatus( String s )
+    {
+        status = s;
+    }
+
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public Vector<Tile> getNeighbors()
+    {
+        return neighbors;
     }
 }

@@ -1,5 +1,8 @@
-package p2;
-import src.*;
+
+import java.awt.geom.*;
+import java.awt.*;
+import javax.swing.*;
+import java.util.*;
 /**
  * Hospital.java - represent a hospital using A-classes
  * 
@@ -7,15 +10,9 @@ import src.*;
  * 
  *    Note: location returned by getLocation is the front door,
  *          not the upper left corner of the bounding box.
- * @author rdb
+ * @author Joe Caraccio
  * Last editted: 01/04/14 Format
  */
-
-import java.awt.geom.*;
-import java.awt.*;
-import javax.swing.*;
-import java.util.*;
-
 public class Hospital
 {
     //---------------- instance variables ------------------------
@@ -30,7 +27,7 @@ public class Hospital
     private int floorH = 20;
     
     //--------------------  constructors ---------------------------
-    /**
+    /** Constructor for Hospital.
      * Constructor for Hospital
      * @param aColor Color  main color of hospital object
      * @param x  int  x coordinate of location (front door)
@@ -72,7 +69,7 @@ public class Hospital
         _erDoor = new Point( x - 10, y + h );
     }
     //--------------------- getLocation() ----------------------------
-    /**
+    /** Returns Location.
      * @return location a bit to the left of the lower right corner
      */
     public Point getLocation()
@@ -80,7 +77,7 @@ public class Hospital
         return _erDoor;
     }
     //----------------- display( Graphics2D ) ------------------------
-    /**
+    /** Displays graphics.
      * delegate calls to the AWT objects
      * @param g2  Graphics2D  drawing environment
      */

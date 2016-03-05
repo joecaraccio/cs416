@@ -1,5 +1,10 @@
-package p2;
-import src.*;
+
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.lang.reflect.Array;
+import java.util.*;
 /**
  * EmergencySite -- represents an emergency site. 
  *   Dragging (mousePressed followed by mouseDragged) repositions it
@@ -9,21 +14,14 @@ import src.*;
  *     site; remove it from the set of sites or somehow make it known
  *     that it is not real emergency site any more.
  * 
- * @author rdb
+ * @author Joe Caraccio
  * Last edited: 01/28/14  
  */
-
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import java.lang.reflect.Array;
-import java.util.*;
-
 public class EmergencySite extends JRectangle
     implements MouseListener, MouseMotionListener, Draggable
 {
     //--------------------- class variables -------------------------
-    public static int    size = 10;
+    private int    size = 10;
     
     //--------------------- instance variables ----------------------
     private boolean     _visited = false;
@@ -50,20 +48,39 @@ public class EmergencySite extends JRectangle
         setSize( size, size );
         solo = false;
         noDrag = false;
-
+        
         addMouseListener( this );
         addMouseMotionListener( this );
     }
     //+++++++++++++++++++ Draggable interface methods ++++++++++++++
     private boolean   _draggable = true; // true if obj can be dragged
+    
+    //---------------- setDraggable ----------------------------------
+    /** .
+      * countains method.
+      * @param onOff boolean.
+      */
     public void setDraggable( boolean onOff )
     {
         _draggable = onOff;
     }
+    
+    //---------------- isDraggable ----------------------------------
+    /** .
+      * is draggable.
+      * @return _draggable boolean.
+      */
     public boolean isDraggable()
     {
         return _draggable;
     }
+    
+    //---------------- contains ----------------------------------
+    /** .
+      * countains method.
+      * @param point java.awt.geom.Point2D;
+      * @return getBounds.Countains(Point) boolean .
+      */
     public boolean contains( java.awt.geom.Point2D point )
     {
         return getBounds().contains( point );
@@ -74,6 +91,11 @@ public class EmergencySite extends JRectangle
     //   used for dragging      
     //+++++++++++++++++++++++++ mouseListener methods +++++++++++++++
     //-------------- mousePressed -----------------------------------
+    //---------------- mousePressed ----------------------------------
+    /** .
+      * mouse pressed
+      * @param me MouseEvent.
+      */
     public void mousePressed( MouseEvent me )
     {
         /////////////////////////////////////////////////////////////
@@ -85,18 +107,28 @@ public class EmergencySite extends JRectangle
         //
         // Assign it to the instance variable, _saveMouse
         /////////////////////////////////////////////////////////////
-
-            _saveMouse = getParent().getMousePosition();
-
-
+        
+        _saveMouse = getParent().getMousePosition();
+        
+        
     }
-     private EMTPanel em2;
-
+    private EMTPanel em2;
+    
+    //---------------- soloSet ----------------------------------
+    /** .
+      * solo setter
+      * @param t boolean.
+      */
     public void soloSet( boolean t )
     {
         solo = t;
     }
     //-------------- mouseClicked -----------------------------------
+    //---------------- mouseClicked ----------------------------------
+    /** .
+      * mouse clicked.
+      * @param me MouseEvent.
+      */
     public void mouseClicked( MouseEvent me )
     {
         //////////////////////////////////////////////////////////////
@@ -110,28 +142,67 @@ public class EmergencySite extends JRectangle
         //      object will know this site is no longer a real site
         //      and should not be visited by the emt vehicle.
         //////////////////////////////////////////////////////////////
-        if( solo == false ) {
-            list.remove(this);
+        if( solo == false ) 
+        {
+            list.remove( this );
         }
         this.setColor( Color.BLUE );
         //this.setColor( Color.green );
         //getParent().repaint();
     }
-
+    
+    //---------------- dispatch ----------------------------------
+    /** .
+      * dispatcher.
+      * @param d Dispatcher.
+      */
     public void dispatch( Dispatcher d )
     {
         dis = d;
     }
-
+    
+    //---------------- setArray ----------------------------------
+    /** .
+      * SetArray
+      * @param site ArrayList<EmergencySite>.
+      */
     public void setArray( ArrayList<EmergencySite> site )
     {
         list = site;
     }
     //--------------- unimplemented mouse listener methods -----------
-    public void mouseReleased( MouseEvent me ){}
-    public void mouseEntered( MouseEvent me ){}
-    public void mouseExited( MouseEvent me ){}
-
+    //---------------- mouseReleased ----------------------------------
+    /** .
+      * Mouse Released
+      * @param me MouseEvent.
+      */
+    public void mouseReleased( MouseEvent me )
+    {
+    }
+    
+    //---------------- mouseEntered ----------------------------------
+    /** .
+      * Mouse Entered
+      * @param me MouseEvent.
+      */
+    public void mouseEntered( MouseEvent me )
+    {
+    }
+    
+    //---------------- mouseExited ----------------------------------
+    /** .
+      * mouse exited
+      * @param me MouseEvent.
+      */
+    public void mouseExited( MouseEvent me )
+    {
+    }
+    
+    //---------------- setNoDrag ----------------------------------
+    /** .
+      * set no drag
+      * @param t boolean.
+      */
     public void setNoDrag ( boolean t )
     {
         noDrag = t;
@@ -139,10 +210,15 @@ public class EmergencySite extends JRectangle
     
     //+++++++++++++++++++ mouseMotionListener methods ++++++++++++++++
     //---------------- mouseDragged ----------------------------------
+    /** .
+      * mouse dragged
+      * @param me MouseEvent.
+      */
     public void mouseDragged( MouseEvent me )
     {
-        if( noDrag == false ) {
-
+        if( noDrag == false ) 
+        {
+            
             //////////////////////////////////////////////////////////////
             //  IF this object is draggable
             //     Get new position of mouse:
@@ -154,62 +230,80 @@ public class EmergencySite extends JRectangle
             //     Save new position in _saveMouse
             //     getParent().repaint()
             //////////////////////////////////////////////////////////////
-            if (solo == false) {
+            if ( solo == false ) 
+            {
                 boolean nodrag = false;
-                if (list.size() > 0) {
-                    if (list.get(0) == this) {
+                if ( list.size() > 0 ) 
+                {
+                    if ( list.get( 0 ) == this ) 
+                    {
                         nodrag = true;
                     }
                 }
-                if (dis.getMode() != 0 && nodrag == true) {
+                if ( dis.getMode() != 0 && nodrag == true ) 
+                {
                     //do nothing
-                } else {
+                } else 
+                {
                     int dX = getParent().getMousePosition().x - _saveMouse.x;
                     int dY = getParent().getMousePosition().y - _saveMouse.y;
-                    this.moveBy(dX, dY);
+                    this.moveBy( dX, dY );
                     _saveMouse = getParent().getMousePosition();
-
+                    
                     getParent().repaint();
                 }
-            } else if (solo == true) {
+            } else if ( solo == true ) 
+            {
                 int dX = getParent().getMousePosition().x - _saveMouse.x;
                 int dY = getParent().getMousePosition().y - _saveMouse.y;
-                this.moveBy(dX, dY);
+                this.moveBy( dX, dY );
                 _saveMouse = getParent().getMousePosition();
-
+                
                 getParent().repaint();
             }
-
+            
         }
     }
     //----------------- mouseMoved not implemented -------------------
-    public void mouseMoved( MouseEvent me ){}
+    /** .
+      * mouse moved.
+      * @param me MouseEvent.
+      */
+    public void mouseMoved( MouseEvent me )
+    {
+    }
     //+++++++++++++++++ end MouseMotionListeners +++++++++++++++++++++
     //------------- paintComponent( Graphics ) ----------------------
-
+    
+    //--------------------- setList -----------------------------------
+    /** .
+      * list setter.
+      * @param e ArrayList<EmergencySite> e.
+      */
     public void setList( ArrayList<EmergencySite> e )
     {
         list = e;
     }
-
+    
     //--------------------- main -----------------------------------
-    /**
-     * unit test
-     */
+    /** .
+      * unit test
+      * @param args String[].
+      */
     public static void main( String[] args )
     {     
         JFrame testFrame = new JFrame();
         testFrame.setSize( 700, 500 );  // define window size
         
         testFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        JPanel testPanel = new JPanel( (LayoutManager) null );
+        JPanel testPanel = new JPanel( ( LayoutManager ) null );
         testFrame.add( testPanel );
         
-        EmergencySite s1 = new EmergencySite( new Point( 200, 200 ));
+        EmergencySite s1 = new EmergencySite( new Point( 200, 200 ) );
         s1.soloSet( true );
         testPanel.add( s1 );
         
-        EmergencySite s2 = new EmergencySite( new Point( 200, 100 ));
+        EmergencySite s2 = new EmergencySite( new Point( 200, 100 ) );
         s2.soloSet( true );
         testPanel.add( s2 );
         

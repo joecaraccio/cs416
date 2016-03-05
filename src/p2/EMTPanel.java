@@ -1,5 +1,8 @@
-package p2;
-import src.*;
+
+import java.util.*;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
 /**
  * EMTPanel.java: Swing panel for EMT motion assignment.
  *     This class is responsible for 
@@ -12,15 +15,9 @@ import src.*;
  *        is going. It might be responsible for updating this line;
  *        or that responsibility could be delegated to another class.
  *      
- * @author rdb
+ * @author Joe Caraccio
  * 02/02/11 Skeleton class created
  */
-
-import java.util.*;
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-
 public class EMTPanel extends JPanel implements Animated, MouseListener
 { 
     //-------------------- class variables -------------------------
@@ -32,8 +29,8 @@ public class EMTPanel extends JPanel implements Animated, MouseListener
     private EMTVehicle j;
     private Dispatcher _dispatch;
     private FrameTimer timer;
-
-
+    
+    
     //--------------- constants -------------------------------------
     
     private Color[] hospColors = { Color.WHITE, Color.RED, Color.PINK };
@@ -55,11 +52,11 @@ public class EMTPanel extends JPanel implements Animated, MouseListener
         _frame = frame;
         
         this.setLayout( null );
-        this.addMouseListener( this);
+        this.addMouseListener( this );
         this.setBackground( Color.LIGHT_GRAY );
         
         Color emtColor = new Color( 0, 255, 0, 128 ); 
-                                           // semitransparent green
+        // semitransparent green
         
         EMTApp.numHospitals = Math.min( EMTApp.numHospitals, 
                                        hospitalX.length );
@@ -80,32 +77,32 @@ public class EMTPanel extends JPanel implements Animated, MouseListener
         // This also could be created in another class and added to
         //    this panel.
         /////////////////////////////////////////////////////////////
-         j = new EMTVehicle( 10, 10, Color.red );
+        j = new EMTVehicle( 10, 10, Color.red );
         //j.setAnimated(true);
-
-        this.add( j);
-
+        
+        this.add( j );
+        
         /////////////////////////////////////////////////////////////
         // Create a FrameTimer with an initial delay of 2000 millisecs
         //   and a delay of 100 millisecs.
         // Start the timer.
         /////////////////////////////////////////////////////////////
         
-
-
+        
+        
         //////////////////////////////////////////////////////////////
         // Create a collection object to hold the emergency sites.
         //////////////////////////////////////////////////////////////
-         esite = new ArrayList<EmergencySite>();
-
+        esite = new ArrayList<EmergencySite>();
+        
         Point p1 = new Point( 300 , 300 );
-        EmergencySite e1 = new EmergencySite( p1 );
-        e1.setLocation( 400 , 400 );
-        e1.setArray( esite );
-        esite.add( e1 );
-        this.add( e1 );
-
-
+        //EmergencySite e1 = new EmergencySite( p1 );
+        //e1.setLocation( 400 , 400 );
+        //e1.setArray( esite );
+        //esite.add( e1 );
+        //this.add( e1 );
+        
+        
         
         //----------- make the hospitals 
         makeHospitals();
@@ -118,15 +115,15 @@ public class EMTPanel extends JPanel implements Animated, MouseListener
         //    -- the hospitals array list
         //    -- the timer
         ///////////////////////////////////////////////////////////////
-        timer = new FrameTimer(100, this);
+        timer = new FrameTimer( 100, this );
         timer.setInitialDelay( 2000 );
         timer.start();
-
+        
         _dispatch = new Dispatcher( _hospitals, timer,  esite ,  j , l1 );
         _dispatch.setAnimated( true );
-
-        e1.dispatch( _dispatch );
-
+        
+        //e1.dispatch( _dispatch );
+        
     } 
     //---------------------- makeHospitals() -------------------------
     /**
@@ -143,19 +140,19 @@ public class EMTPanel extends JPanel implements Animated, MouseListener
             Color hColor = hospColors[ s % hospColors.length ];
             Hospital h = new Hospital( hColor, hx, hy, hospitalW, hospitalH );
             
-            _hospitals.add( h);
+            _hospitals.add( h );
         }
     }
-
-
-
-
+    
+    
+    
+    
     
     //+++++++++++++++++++ Animated methods +++++++++++++++++++++++
     private boolean _animated = true;
     /**
      * return true always. Program makes no sense with animation off
-     * 
+     * @return _animated boolean.
      */
     public boolean isAnimated()
     {
@@ -178,8 +175,8 @@ public class EMTPanel extends JPanel implements Animated, MouseListener
     public void newFrame()
     {
         _dispatch.newFrame();
-
-
+        
+        
         //////////////////////////////////////////////////////////////////
         // Your Dispatcher objects newFrame needs to be called; 
         //   depending on your design decisions, other things might
@@ -213,41 +210,85 @@ public class EMTPanel extends JPanel implements Animated, MouseListener
         repaint();      
     }
     //------------- unused interface methods -----------------
-    public void mouseDragged( MouseEvent me ){ }
-    public void mouseClicked( MouseEvent me ) {
-
-
+    
+    //----------------- mouseDragged() -----------------------
+    /** .
+      * Mouse Function
+      * 
+      * @param me MouseEvent mouse event.
+      */
+    public void mouseDragged( MouseEvent me )
+    { }
+    //----------------- mouseClicked() -----------------------
+    /** .
+      * Mouse Function
+      * 
+      * @param me MouseEvent mouse event.
+      */
+    public void mouseClicked( MouseEvent me ) 
+    {
+        
+        
     }
-    public void mouseEntered( MouseEvent me ) {}
-    public void mouseExited( MouseEvent me ) {}
-    public void mouseMoved( MouseEvent me ) {}
-    public void mouseReleased( MouseEvent me ){}
+    //----------------- mouseEntered() -----------------------
+    /** .
+      * Mouse Function
+      * 
+      * @param me MouseEvent mouse event.
+      */
+    public void mouseEntered( MouseEvent me ) 
+    { }
+    //----------------- mouseExited() -----------------------
+    /** .
+      * Mouse Function
+      * 
+      * @param me MouseEvent mouse event.
+      */
+    public void mouseExited( MouseEvent me ) 
+    { }
+    //----------------- mouseMoved() -----------------------
+    /** .
+      * Mouse Function
+      * 
+      * @param me MouseEvent mouse event.
+      */
+    public void mouseMoved( MouseEvent me ) 
+    { }
+    //----------------- mouseReleased() -----------------------
+    /** .
+      * Mouse Function
+      * 
+      * @param me MouseEvent mouse event.
+      */
+    public void mouseReleased( MouseEvent me )
+    { }
     //++++++++++++++++++++++ end Mouse Listener methods +++++++++++++++++
     
     //----------------- paintComponent( Graphics) -----------------------
-    /**
-     * Call AWT object display methods
-     * 
-     * @param g Graphics  graphics context
-     */
+    /** .
+      * Call AWT object display methods
+      * 
+      * @param g Graphics  graphics context
+      */
     public void paintComponent( Graphics g )
     {
         super.paintComponent( g );
         for ( Hospital h: _hospitals )
             h.display( (Graphics2D ) g );
-
+        
     }
     
     //++++++++++++++++++++++ convenience system test ++++++++++++++++++++
     //------------------------ main -----------------------------------
+    /** .
+      * Call AWT object display methods
+      * 
+      * @param args String[]  .
+      */
     public static void main( String[] args )
     {
         EMTApp.main( args );
-
-        System.out.println("Test shit in main joe delete");
-        String joe = "teeth";
-        System.out.println( joe.charAt( 0 ));
-        System.out.println( joe.charAt( joe.length() - 1 ));
-        System.out.println( joe.substring( 1 , joe.length()  ));
+        
+        
     }
 }

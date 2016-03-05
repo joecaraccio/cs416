@@ -1,43 +1,13 @@
-package p2;
-import src.*;
-/*
- * EMTVehicle.java:
- *   
- * A very simple representation of an emt vehicle going to emergency
- * sites and hospitals.
- * 
- * This class is responsible for:
- *   1. remembering "home" position; one specified at creation time.
- *   2. having a public interface method that allows the dispatcher
- *      to tell it where to go next.
- *   3. being able to move itself by steps to that "goal" position
- *      at some specified speed. 
- *   4. given a goal position and a speed,   
- *       -computing the number of frames it will take to get there
- *       -computing the floating point incremental x and y
- *        changes needed for all but the last step
- *       -maintaining a floating point representation for the
- *        "precisely correct" position for each step.
- *       -converting the "correct" position to the closest
- *        pixel (int) location at each step; this means using
- *        (int)Math.round( floatX or floatY ), not just casting
- *        the float values to int.
- *   5. Stopping when it gets to the goal position and having some
- *      way that the dispatcher can find out that it got to its
- *      goal location.
- *   6. Having a public interface method that allows the dispatcher
- *      to get its home position or to tell it to go to its home
- *      position.
- * 
- * 
- * @author rdb
- * 02/02/11  Skeleton class created
- */
 
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
-
+/**
+ * EMTVehicle.java.
+ * Creates a Vehichle like object.
+ * @author Joe Caraccio
+ * Last editted: 01/04/14 Format
+ */
 public class EMTVehicle extends JComponent implements Animated
 { 
     //---------------------- instance variables ---------------------
@@ -70,7 +40,7 @@ public class EMTVehicle extends JComponent implements Animated
     private boolean targetReached;
     
     //------------------------- constructor -----------------------
-    /**
+    /** Main Constructor.
      * Main constructor
      * @param x  int x-coord of location
      * @param y  int y-coord of location
@@ -104,18 +74,24 @@ public class EMTVehicle extends JComponent implements Animated
         targetReached = false;
     }
     //------------------------- constructor ------------------------
+     /** Another constructor.
+     * override add method to compute and set bounds information as 
+     * components are added to the object.
+     * @param loc Point.
+     * @param col Color.
+     */
     public EMTVehicle ( Point loc, Color col ) 
     {  
         this( loc.x, loc.y, col );
     }
-    //---------------- add( JComponent ) ---------------------------
-    /**
+   
+    private Rectangle  _bounds = null; 
+     //---------------- add( JComponent ) ---------------------------
+    /** .
      * override add method to compute and set bounds information as 
      * components are added to the object.
      * @param comp JComponent  component to be added
      */
-    private Rectangle  _bounds = null;    // instance variable
-    
     public void add( JComponent comp )
     {
         super.add( comp );
@@ -126,8 +102,8 @@ public class EMTVehicle extends JComponent implements Animated
         super.setBounds( _bounds ); // update location/size     
     }
     //------------------ travelTo( int, int, int ) -------------------
-    /**
-     * travel to the specified location at the specified speed
+    /** .
+     * travel to the specified location at the specified speed.
      * @param x int  x-pos of target location
      * @param y int  y-pos of target location
      * @param speed int  steps per frame to move
@@ -163,9 +139,9 @@ public class EMTVehicle extends JComponent implements Animated
         double dist = Math.sqrt( disH );
         float d1 = (float) dist;
         int rounded = Math.round( d1 );
-        int steps = (int) d1/speed;
-        double dx = distanceX/steps;
-        double dy = distanceY/steps;
+        int steps = (int) d1 / speed;
+        double dx = distanceX / steps;
+        double dy = distanceY / steps;
         int estimated = (int) dx;
 
 
@@ -213,16 +189,30 @@ public class EMTVehicle extends JComponent implements Animated
     //++++++++++++++++++++++ Animated interface ++++++++++++++++++++++
     private boolean _animated = false;
     //---------------------- isAnimated() ----------------------------
+      //---------------------- isAnimated() ------------------------------
+    /** .
+     * returns info about being animated; 
+     * @return _animated boolean.
+     */
     public boolean isAnimated()
     {
         return _animated;
     }
 
+    //---------------------- targetReachedReset() ------------------------------
+    /** .
+     * returns info about target being reached reset; 
+     */
     public void targetReachedReset()
     {
         targetReached = false;
     }
 
+     //---------------------- isTargetReached() ------------------------------
+    /** .
+     * returns info about target being reached;
+     * @return targetReached boolean.
+     */
     public boolean isTargetReached()
     {
         return targetReached;
@@ -230,6 +220,11 @@ public class EMTVehicle extends JComponent implements Animated
 
 
     //---------------------- setAnimated( boolean ) ------------------
+    /** .
+     * turns animation on/off; 
+     * update the position of the vehicle; check if it has reached the
+     * @param onOff boolean.
+     */
     public void setAnimated( boolean onOff )
     {
         _animated = onOff;
@@ -253,17 +248,18 @@ public class EMTVehicle extends JComponent implements Animated
         //    set the location to the goal location
         //////////////////////////////////////////////////////////////
 
-        if( _nSteps > 0 ) {
+        if( _nSteps > 0 ) 
+        {
 
-            this.setLocation(this.getX() + (int) _stepX, this.getY() + (int) _stepY);   // update location
+            this.setLocation( this.getX() + (int) _stepX, this.getY() + 
+                             (int) _stepY );  
             //System.out.println("We are on Step#:" + _nSteps);
             _nSteps = _nSteps - 1;
         }
         if( _nSteps == 0 )
         {
             targetReached = true;
-           //  System.out.println("We Have reached Destination!");
-            // System.out.println( "Our Location: " + this.getX() + "," + this.getY() );
+     
             _nSteps = -1;
         }
         this.repaint();
@@ -273,8 +269,9 @@ public class EMTVehicle extends JComponent implements Animated
     //+++++++++++++++ end Animated interface ++++++++++++++++++++++++
     
     //--------------------- main -----------------------------------
-    /**
-     * unit test
+    /** .
+     * unit test.
+     * @param args String[].
      */
     public static void main( String[] args )
     {     
@@ -294,7 +291,7 @@ public class EMTVehicle extends JComponent implements Animated
 */
         EMTVehicle d2 = new EMTVehicle( new Point( 300, 300 ),
                                         Color.BLUE );
-        d2.travelTo( 300 , 300 , 10);
+        d2.travelTo( 300 , 300 , 10 );
         d2.setAnimated( true );
         testPanel.add( d2 );
         

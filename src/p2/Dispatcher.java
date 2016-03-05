@@ -1,6 +1,6 @@
-package p2;
-import src.*;
 
+import java.util.*;
+import java.awt.*;
 /**
  * Dispatcher.java -- Controls the activities of the EMTVehicle
  *    Resonsibilities:
@@ -30,14 +30,10 @@ import src.*;
  *    to go to the next site in the array. There are of course 
  *    several other cases.
  * 
- * @author rdb
+ * @author Joe Caraccio
  * Last editted: 01/04/14 Format 
  * 
  */
-
-import java.util.*;
-import java.awt.*;
-
 public class Dispatcher implements Animated
 {
     //-------------------- instance variables ---------------------
@@ -51,19 +47,23 @@ public class Dispatcher implements Animated
     private boolean delay;
     private boolean reset;
     
-    //------------------ constructor -----------------------------
-    public Dispatcher( 
-                      ArrayList<Hospital> hospitals,
-                      FrameTimer f1,
-                      ArrayList<EmergencySite> Emergency,
+//---------------------- Dispatcher() -------------------------
+    /** .
+      * constructor.
+      * @param hospitals ArrayList<Hospital>.
+      * @param f1 FrameTimer.
+      * @param emergency1 ArrayList<EmergencySite>.
+      * @param j EMTVehicle.
+      * @param l1 Jline.
+      */
+    public Dispatcher( ArrayList<Hospital> hospitals, FrameTimer f1,
+                      ArrayList<EmergencySite> emergency1,
                       EMTVehicle j,
-                      JLine l1
-                          // what else do you need or want?
-                     )
+                      JLine l1 )
     {
         line = l1;
         _hospitals = hospitals;
-        _emergency = Emergency;
+        _emergency = emergency1;
         _frametimer = f1;
         car = j;
         delay = false;
@@ -75,17 +75,20 @@ public class Dispatcher implements Animated
         reset = false;
     }
     //---------------------- setNextSite() -------------------------
-    /**
-     * identify the next emergency site, if there is one
-     */
+    /** .
+      * identify the next emergency site, if there is one
+      * @return next EmergencySite.
+      */
     private EmergencySite getNextSite()
     {
-        if( _emergency.size() > 0 ) {
-            EmergencySite next = _emergency.get(0);
+        if( _emergency.size() > 0 ) 
+        {
+            EmergencySite next = _emergency.get( 0 );
             return next;
-
-
-        } else {
+            
+            
+        } else 
+        {
             return null;
         }
         //////////////////////////////////////////////////////////////
@@ -123,16 +126,30 @@ public class Dispatcher implements Animated
         }
         return closest;
     }
-
+    //---------------------- delayer() -----------------
+    /**
+     * return delay.
+     * @return delay boolean.
+     */
     public boolean delayer()
     {
         return delay;
     }
-
+    
+    //---------------------- setDelay() -----------------
+    /**
+     * starts the delay.
+     * @param t boolean.
+     */
     public void setDelay( boolean t )
     {
         delay = t;
     }
+    //---------------------- getMode() -----------------
+    /**
+     * gets the mode.
+     * @return mode int.
+     */
     public int getMode()
     {
         return mode;
@@ -140,12 +157,21 @@ public class Dispatcher implements Animated
     
     //++++++++++++++++++++++ Animated interface ++++++++++++++++++++++
     private boolean _animated = true;
-    //---------------------- isAnimated() ----------------------------
+    //---------------------- isAnimated() -----------------
+    /**
+     * sets the animated option.
+     * @return _animated boolean.
+     */
     public boolean isAnimated()
     {
         return _animated;
     }
     //---------------------- setAnimated( boolean ) -----------------
+    /**
+     * sets the animated option.
+     * 
+     * @param  onOff  boolean  setAnimated.
+     */
     public void setAnimated( boolean onOff )
     {
         _animated = onOff;
@@ -160,147 +186,101 @@ public class Dispatcher implements Animated
         if( mode == 2 )
         {
             line.setVisible( false );
-        if( reset == false ) {
-            car.travelTo(10, 10, EMTApp.normalSpeed);
-            //System.out.println("Reseting...");
-            if( car.getLocation().x == 10 )
-            {
-                if( car.getLocation().y == 10 )
+            if( reset == false ) 
+            { 
+                car.travelTo( 10, 10, EMTApp.normalSpeed );
+                if( car.getLocation().x == 10 )
                 {
-                    reset = true;
+                    if( car.getLocation().y == 10 )
+                    {
+                        reset = true;
+                    }
                 }
             }
-        }
-
             car.targetReachedReset();
             car.newFrame();
-
-            //mode mode
             if( _emergency.size() > 0 )
             {
                 reset = false;
-                mode = 0;
-
+                mode = 0;   
             }
         }
-        //////////////////////////////////////////////////////////////
-        // If vehicle is moving, update its position (by calling its 
-        //    newFrame method. 
-        // Somehow, need to know if it has reached its goal position. 
-        //    If so, figure out what the next goal should be.
-        // 
-        //    If previous goal was emergency site, new goal is hospital
-        //    If previous goal was a hospital (or if it was at home,
-        //       or if it was going home), new goal is the next
-        //       emergency site, if there is one, or home if no more 
-        //       emergencies.
-        //////////////////////////////////////////////////////////////
-
         if( mode == 3 )
         {
-            //System.out.println("Mode 3 lets go");
             Hospital h1 = this.getClosestHospital( car.getLocation() );
-            line.setPoints( car.getLocation().x + car.getWidth()/2, car.getLocation().y + car.getHeight()/2, h1.getLocation().x, h1.getLocation().y );
+            line.setPoints( car.getLocation().x + car.getWidth() / 2, 
+                           car.getLocation().y + car.getHeight() / 2, 
+                           h1.getLocation().x, h1.getLocation().y  );
             line.setVisible( true );
-            car.travelTo( h1.getLocation().x, h1.getLocation().y, EMTApp.highSpeed );
+            car.travelTo( h1.getLocation().x, 
+                         h1.getLocation().y , EMTApp.highSpeed );
             car.newFrame();
         }
         if( car.isTargetReached() == true )
         {
-            //switch the mode
-            //mode 0 is to go to an emergency site
-            //mode 1 is to go a hospital
-
             if( mode == 0 )
-            { //means we arrived at an emergency site
-
-               _frametimer.restart();
+            {    
+                _frametimer.restart();
                 boolean justGoHome = false;
-                if( _emergency.size() > 0 ) {
+                if( _emergency.size() > 0 ) 
+                {
                     _emergency.get( 0 ).setColor( Color.BLUE );
-                    _emergency.get(0).setVisible(false);
-                    _emergency.remove(0); //removes the first object
+                    _emergency.get( 0 ).setVisible( false );
+                    _emergency.remove( 0 ); //removes the first object
                 } else if ( _emergency.size() == 0 )
                 {
                     justGoHome = true;
                     mode = 1;
                 }
-
-                mode = 3;
-
-                    //now tells us what hopsital we need to go
-               // if( !justGoHome ) {
-
-
-
-
-                //}
-
+                mode = 3;               
             } else if ( mode == 1 )
-            {
-
-                _frametimer.restart();
-
-
+            {     
+                _frametimer.restart();          
                 if( _emergency.size() > 0 )
+                {                  
+                    mode = 0;               
+                } else 
                 {
-
-                    mode = 0;
-
-                } else {
                     mode = 2;
-
-                    //off mode basically
                 }
             } else if ( mode == 3 )
             {
-
-
                 if( _emergency.size() > 0 )
                 {
                     _frametimer.restart();
-
                     mode = 0;
-
-                } else {
+                } else 
+                {
                     _frametimer.restart();
-
                     mode = 2;
-
-                    //off mode basically
                 }
             }
         }
-
-        //traveling to a emergency site
-        if ( mode == 0 ) {
-
+        if ( mode == 0 ) 
+        {
             if( this.getNextSite() != null )
             {
                 EmergencySite e = this.getNextSite();
                 currentSite = e;
             }
             currentSite.setNoDrag( true );
-
+            
             int nextX = currentSite.getXLocation();
             int nextY = currentSite.getYLocation();
-            //
-
-            line.setPoints( car.getX() + car.getWidth()/2 , car.getY() + car.getHeight()/2 , nextX + currentSite.getWidth()/2  , nextY + currentSite.getHeight()/2 );
+            line.setPoints( car.getX() + car.getWidth() / 2 , 
+                           car.getY() + car.getHeight() / 2 , 
+                           nextX + currentSite.getWidth() / 2  , 
+                           nextY + currentSite.getHeight() / 2 );
             line.setVisible( true );
-
-            car.travelTo(currentSite.getXLocation()
-                    , currentSite.getYLocation(), EMTApp.highSpeed
-            );
-            //mode = 1;
+            
+            int tmpx = currentSite.getXLocation();
+            car.travelTo( tmpx, currentSite.getYLocation(), EMTApp.highSpeed );
             car.newFrame();
-
+            
         } else if( mode == 1 )
         {
             car.newFrame();
-        }
-
-
+        }    
     }
     //+++++++++++++++ end Animated interface +++++++++++++++++++++++++
 }

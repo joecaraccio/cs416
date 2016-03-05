@@ -1,4 +1,4 @@
-
+package lab10;
 //------------------------- CardStack ------------------------------
 import javax.swing.border.*;
 import javax.swing.*;

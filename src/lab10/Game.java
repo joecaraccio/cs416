@@ -1,4 +1,4 @@
-
+package lab10;
 //------------------------- Game.java -------------------------
 import java.awt.*;
 import javax.swing.*;

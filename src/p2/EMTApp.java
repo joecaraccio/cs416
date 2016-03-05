@@ -1,5 +1,4 @@
-package p2;
-import src.*;
+
 /**
  * EMTApp.java -- CS416 P2 
  * 
