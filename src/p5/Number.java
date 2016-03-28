@@ -8,7 +8,7 @@ public class Number extends Operand {
     Float token;
 
     public Number( float s ){
-        System.out.println("Number");
+        //System.out.println("Number");
         token = s;
     }
 

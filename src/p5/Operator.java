@@ -8,13 +8,13 @@ public class Operator extends  EToken {
     String operator;
 
     public Operator(String s ){
-        System.out.println( "Operator");
+        //System.out.println( "Operator");
         operator = s;
 
     }
 
     public String printable(){
-        System.out.println("Printable");
+        //System.out.println("Printable");
         String printformat = "<" + operator + ">";
 
         return printformat;

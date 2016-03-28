@@ -8,11 +8,11 @@ import com.sun.corba.se.impl.transport.SharedCDRContactInfoImpl;
 public class Operand extends EToken {
 
     public Operand(){
-        System.out.println( "Operand");
+        //System.out.println( "Operand");
     }
 
     public String printable(){
-        System.out.println("Printable");
+        //System.out.println("Printable");
 
 
         return null;
