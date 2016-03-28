@@ -36,7 +36,7 @@ public class Boggle
    //--------------------- class variables -------------------------
    //-- parameters changeable from command line
    static String     dictionaryFile = "opted3to8.txt";
-   static String     diceFile       = "boggle4x4.txt";
+   static String     diceFile       = "boggle4x5.txt";
    static boolean    batch          = false;
    static int        seed           = 1;
    

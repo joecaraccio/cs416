@@ -1,6 +1,4 @@
 package p4;
-
-
 import java.io.*;
 import java.util.*;
 /** Boggle Board.
@@ -50,14 +48,13 @@ public class BoggleBoard
             Tile t = new Tile( currentRow, c1, lettersOnBoard.get( i ) );
             
             board[ currentRow ][currentCol] = t;
-            
-            if( currentRow == rows - 1 )
+            if( currentCol == cols - 1 )
             {
-                currentRow = 0;
-                currentCol = currentCol + 1;
+                currentCol = 0;
+                currentRow = currentRow + 1;
             } else 
             {
-                currentRow++;
+                currentCol++;
             }
             
             
