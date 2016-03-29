@@ -2,17 +2,41 @@ package p5;
 
 /**
  * Created by Joe on 3/26/2016.
+ * 
+ * @author Joe Caraccio
  */
-public class Number extends Operand {
+public class Number extends Operand 
+{
 
-    Float token;
+    private Float token;
 
-    public Number( float s ){
+    /** Number.
+     * 
+     * @param s float.
+     * */
+    public Number( float s )
+    {
         //System.out.println("Number");
         token = s;
     }
 
-    public String printable() {
+    /** getToken().
+     *
+     *
+     * @return token float.
+     */
+    public float getToken()
+    {
+        return token;
+    }
+
+    
+    /** printable().
+     * 
+     * @return returnstring String.
+     * */
+    public String printable() 
+    {
         int tokenint =  Math.round( token );
         String returnstring = "@" +  tokenint;
 

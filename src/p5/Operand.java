@@ -1,21 +1,31 @@
 package p5;
 
-import com.sun.corba.se.impl.transport.SharedCDRContactInfoImpl;
 
 /**
  * Created by Joe on 3/26/2016.
+ * 
+ * @author joe Caraccio
  */
-public class Operand extends EToken {
-
-    public Operand(){
+public class Operand extends EToken 
+{
+    /** Operand().
+      * 
+      * */
+    public Operand()
+    {
         //System.out.println( "Operand");
     }
-
-    public String printable(){
+    
+    /** printable().
+      * 
+      * @return s String.
+      * */
+    public String printable()
+    {
         //System.out.println("Printable");
-
-
+        
+        
         return null;
     }
-
+    
 }

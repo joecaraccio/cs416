@@ -2,17 +2,29 @@ package p5;
 
 /**
  * Created by Joe on 3/26/2016.
+ * 
+ * @author Joe Caraccio
  */
-public class Variable extends Operand {
+public class Variable extends Operand 
+{
 
-    String s1;
-    public Variable( String s ){
+    private String s1;
+    /** Variable.
+     * 
+     * @param s String.
+     * */
+    public Variable( String s )
+    {
         s1 = s;
     }
 
-    public String printable() {
+    /** printable.
+     * 
+     * @return returnstring String.
+     * */
+    public String printable()
+    {
         String returnstring = "@" +  s1;
-
         return returnstring;
     }
 }

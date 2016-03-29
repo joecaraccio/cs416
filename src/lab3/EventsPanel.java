@@ -69,7 +69,7 @@ public class EventsPanel extends JPanel
         //         somewhere new, make it a different size,  
         //         and give it different setMove parameters
         ////////////////////////////////////////////////////////////////
-     AMovableEllipse bball2 = new AMovableEllipse( Color.RED);
+     AMovableEllipse bball2 = new AMovableEllipse( Color.BLUE );
      bball2.setContainer(this);
      bball2.setLocation( 100, 100);
      bball2.setSize(90, 90);
