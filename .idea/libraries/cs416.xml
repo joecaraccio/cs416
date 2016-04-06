@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cs416">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/jar/cs416.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
